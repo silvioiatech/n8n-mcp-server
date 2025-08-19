@@ -1,26 +1,15 @@
 FROM node:18-alpine
 
-# Créer le répertoire de travail
 WORKDIR /app
 
-# Copier les fichiers de configuration
-COPY package*.json ./
-COPY tsconfig.json ./
+# Copier tout
+COPY . .
 
-# Installer les dépendances
+# Installer dépendances
 RUN npm install
-
-# Copier le code source
-COPY src ./src
-
-# Build du projet
-RUN npm run build
 
 # Exposer le port
 EXPOSE $PORT
 
-# Variables d'environnement par défaut
-ENV NODE_ENV=production
-
-# Commande de démarrage
-CMD ["npm", "start"]
+# Lancer directement TypeScript avec tsx
+CMD ["npx", "tsx", "src/index.ts"]
